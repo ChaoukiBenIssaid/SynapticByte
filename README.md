@@ -21,7 +21,7 @@ Videos are organized into **courses** (broad subject areas), with each course co
 | 1.1 | Probability & Combinatorics, Visually Explained | [`01_logic_of_uncertainty/`](./01_logic_of_uncertainty) | [Watch](https://www.youtube.com/watch?v=AZKP7mejviQ) |
 | 1.2 | Conditional Probability — The Soul of Statistics | [`02_soul_of_statistics/`](./02_soul_of_statistics) | *(coming soon)* |
  
-### ⚙️ Course II — Engineering Mathematics
+### ⚙️ Course II: Engineering Mathematics
  
 *The tools engineers actually use.* Transforms, differential equations, linear systems, and the mathematical machinery behind signals, control, and dynamics.
  
