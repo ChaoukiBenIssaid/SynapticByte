@@ -1,6 +1,6 @@
 # SynapticByte
 
-> Visual intuition for the math behind intelligence — built with Manim.
+> Visual intuition for the math behind intelligence, built with Manim.
 
 This repository contains the full Manim source code for every animation published on the [**SynapticByte**](https://www.youtube.com/channel/UCz9OT1Rcx5MgUDxK4fsMXOQ) YouTube channel. Each video is a self-contained, fully-reproducible explainer covering topics across probability, statistics, linear algebra, and the mathematics of machine learning.
 
