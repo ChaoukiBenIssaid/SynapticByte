@@ -49,7 +49,7 @@ For example, a high-quality render of `LogicOfUncertainty` lands at:
 ```
 media/videos/logic_of_uncertainty/1080p60/LogicOfUncertainty.mp4
 ```
-The whole `media/` folder is gitignored.
+
 ---
 Performance tips
 Disable the partial movie cache for a one-off fresh render: `--disable_caching`.
