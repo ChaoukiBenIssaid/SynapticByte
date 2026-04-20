@@ -4,7 +4,7 @@
 >
 > **📺 Watch on YouTube:** https://www.youtube.com/watch?v=AZKP7mejviQ
 
-Human intuition is notoriously bad at probability. This video builds the foundations from the ground up — from sample spaces to the birthday paradox — using a "pebble-based" visual metaphor.
+Human intuition is notoriously bad at probability. This video builds the foundations from the ground up, from sample spaces to the birthday paradox, using a "pebble-based" visual metaphor.
 
 ---
 
@@ -46,14 +46,6 @@ manim -pqh 01_logic_of_uncertainty/logic_of_uncertainty.py LogicOfUncertainty
 # Fast preview
 manim -pql 01_logic_of_uncertainty/logic_of_uncertainty.py LogicOfUncertainty
 ```
-
----
-
-## Assets used
-
-The scene methods reference SVG files listed below. All are currently placeholders (missing) — scenes fall back to geometric primitives when an SVG is absent, so the video still renders.
-
-_No SVG assets are loaded in this video. All visuals are code-drawn._
 
 ---
 
