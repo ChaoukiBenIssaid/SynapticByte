@@ -8,15 +8,30 @@ Created by [Chaouki Ben Issaid](https://github.com/), a Senior Researcher and Ad
 
 ---
 
-## Videos in this repository
-
-| № | Video | Folder | YouTube |
-|---|---|---|---|
-| 01 | Probability & Combinatorics, Visually Explained | [`01_logic_of_uncertainty/`](./01_logic_of_uncertainty) | [Watch](https://www.youtube.com/watch?v=AZKP7mejviQ) |
-| 02 | Conditional Probability — The Soul of Statistics | [`02_soul_of_statistics/`](./02_soul_of_statistics) | *(coming soon)* |
-| 03 | The Laplace Transform, Visually Explained | [`03_laplace_blueprint/`](./03_laplace_blueprint) | *(coming soon)* |
-
-Each video folder contains its own README with a scene-by-scene breakdown, required assets, and rendering instructions specific to that video.
+## Courses
+ 
+Videos are organized into **courses** (broad subject areas), with each course containing a growing catalog of episodes. New episodes are added as the channel grows.
+ 
+### 🎲 Course I — Probability
+ 
+*The Grammar of Probability: from first principles to the mathematics of belief.* Sample spaces, counting, the paradoxes that break human intuition, and the full machinery of conditional probability, Bayes' rule, and inference.
+ 
+| Ep. | Video | Folder | YouTube |
+|-----|-------|--------|---------|
+| 1.1 | Probability & Combinatorics, Visually Explained | [`01_logic_of_uncertainty/`](./01_logic_of_uncertainty) | [Watch](https://www.youtube.com/watch?v=AZKP7mejviQ) |
+| 1.2 | Conditional Probability — The Soul of Statistics | [`02_soul_of_statistics/`](./02_soul_of_statistics) | *(coming soon)* |
+ 
+### ⚙️ Course II — Engineering Mathematics
+ 
+*The tools engineers actually use.* Transforms, differential equations, linear systems, and the mathematical machinery behind signals, control, and dynamics.
+ 
+| Ep. | Video | Folder | YouTube |
+|-----|-------|--------|---------|
+| 2.1 | The Laplace Transform, Visually Explained | [`03_laplace_blueprint/`](./03_laplace_blueprint) | *(coming soon)* |
+ 
+Each video folder contains its own README with a scene-by-scene breakdown, required SVG assets, and rendering instructions specific to that video.
+ 
+---
 
 ---
 
