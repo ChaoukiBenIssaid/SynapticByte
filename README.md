@@ -72,41 +72,6 @@ manim -pqh -s 02_soul_of_statistics/soul_of_statistics.py SoulOfStatistics
 
 ---
 
-## Repository structure
-
-```
-synapticbyte/
-├── shared/                       # Reusable components across all videos
-│   ├── palette.py                #   3B1B-inspired color constants
-│   ├── components.py             #   Pebble, section_title, golden_box, ...
-│   └── __init__.py
-│
-├── 01_logic_of_uncertainty/      # Video 01 — probability & combinatorics
-│   ├── logic_of_uncertainty.py
-│   ├── assets/                   #   SVG files (placeholders)
-│   └── README.md
-│
-├── 02_soul_of_statistics/        # Video 02 — conditional probability
-│   ├── soul_of_statistics.py
-│   ├── assets/
-│   └── README.md
-│
-├── 03_laplace_blueprint/         # Video 03 — the Laplace transform
-│   ├── laplace_blueprint.py
-│   ├── assets/
-│   └── README.md
-│
-├── docs/
-│   └── rendering.md              # rendering tips and settings
-│
-├── requirements.txt
-├── LICENSE
-├── CITATION.cff
-└── README.md                     # this file
-```
-
----
-
 ## A note on audio and voiceover
 
 The scripts in this repo are the **raw, silent versions** of the animations. The narrated voiceovers heard on the YouTube channel are generated separately using a text-to-speech pipeline and synchronized at render time in the production version of each script. They are not included here.
