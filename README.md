@@ -120,10 +120,11 @@ If you want to add your own narration, each scene's animations are cleanly separ
 The `assets/` folder inside each video contains placeholder SVG files. **You will need to provide your own icons** (or replace the `SVGMobject(...)` calls with code-drawn alternatives). Every scene that loads an SVG is wrapped in a `try/except` so missing assets will fall back to simple geometric shapes and the animation will still render cleanly — just with less polish.
 
 Recommended free sources for replacement SVGs:
-- [Feather Icons](https://feathericons.com/) (MIT license)
-- [Heroicons](https://heroicons.com/) (MIT license)
-- [Tabler Icons](https://tabler-icons.io/) (MIT license)
-- [The Noun Project](https://thenounproject.com/) (attribution required)
+- [Feather Icons](https://feathericons.com/) 
+- [Heroicons](https://heroicons.com/) 
+- [SVGRepo](https://www.svgrepo.com/)
+- [Tabler Icons](https://tabler-icons.io/) 
+- [The Noun Project](https://thenounproject.com/) 
 
 ---
 
