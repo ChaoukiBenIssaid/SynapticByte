@@ -12,7 +12,7 @@ Created by [Chaouki Ben Issaid](https://github.com/), a Senior Researcher and Ad
  
 Videos are organized into **courses** (broad subject areas), with each course containing a growing catalog of episodes. New episodes are added as the channel grows.
  
-### 🎲 Course I: The_Grammar of Probability: Master Uncertainty
+### 🎲 Course I: The Grammar of Probability: Master Uncertainty
  
 *The Grammar of Probability: from first principles to the mathematics of belief.* Sample spaces, counting, the paradoxes that break human intuition, and the full machinery of conditional probability, Bayes' rule, and inference.
  
