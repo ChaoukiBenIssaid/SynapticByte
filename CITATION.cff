@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "SynapticByte: Visual intuition for the math behind intelligence"
+message: "If you use these animations in your teaching, research, or derivative work, please cite them as below."
+type: software
+authors:
+  - family-names: "Ben Issaid"
+    given-names: "Chaouki"
+    affiliation: "University of Oulu, Centre for Wireless Communications"
+repository-code: "https://github.com/<your-username>/synapticbyte"
+url: "https://www.youtube.com/channel/UCz9OT1Rcx5MgUDxK4fsMXOQ"
+abstract: >-
+  A collection of Manim animation scripts accompanying the SynapticByte
+  YouTube channel, covering probability, statistics, linear algebra, and
+  the mathematics of machine learning. All animations are released as
+  open source under the MIT license.
+keywords:
+  - manim
+  - mathematics
+  - education
+  - probability
+  - statistics
+  - machine-learning
+  - animation
+  - visualization
+license: MIT
+date-released: 2026-04-19

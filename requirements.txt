@@ -1,0 +1,15 @@
+# Core animation engine
+manim>=0.18.0
+
+# Numerical computing
+numpy>=1.24
+
+# ---- Optional dependencies ----
+# Only needed if you reimplement audio-synced playback in your own scripts.
+# mutagen>=1.47
+
+# ---- Not required for these silent scripts ----
+# The following are listed for completeness; the scripts in this repo do NOT
+# require them. Uncomment if you extend the scripts with narration.
+# manim-voiceover>=0.3.0
+# elevenlabs>=1.0
