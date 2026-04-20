@@ -4,7 +4,7 @@
 
 This repository contains the full Manim source code for every animation published on the [**SynapticByte**](https://www.youtube.com/channel/UCz9OT1Rcx5MgUDxK4fsMXOQ) YouTube channel. Each video is a self-contained, fully-reproducible explainer covering topics across probability, statistics, linear algebra, and the mathematics of machine learning.
 
-Created by [Chaouki Ben Issaid](https://github.com/) — Senior Researcher and Adjunct Professor at the University of Oulu, specializing in federated learning, distributed optimization, and wireless communications.
+Created by [Chaouki Ben Issaid](https://github.com/), a Senior Researcher and Adjunct Professor at the University of Oulu, specializing in federated learning, distributed optimization, and wireless communications.
 
 ---
 
