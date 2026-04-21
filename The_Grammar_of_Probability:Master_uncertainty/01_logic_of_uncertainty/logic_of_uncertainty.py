@@ -185,7 +185,7 @@ class LogicOfUncertainty(Scene):
         )
         self.wait(1)
 
-        # Reveal: highlight C, dim others
+        
         box_c = SurroundingRectangle(opt_c, color=YELLOW_3B, buff=0.15, stroke_width=2)
         self.play(
             Create(box_c),
@@ -234,10 +234,10 @@ class LogicOfUncertainty(Scene):
         self.play(Write(title[0]), GrowFromEdge(title[1], LEFT), run_time=1.5)
         self.wait(0.5)
 
-        # Shift the entire diagram left to leave room for the text on the right
+        
         left_shift = LEFT * 1.5
 
-        # Sample space S — a subtle rounded rectangle with a faint background fill
+        
         s_box = RoundedRectangle(
             corner_radius=0.15, width=8, height=5, 
             stroke_color=GREY_3B, stroke_width=2, stroke_opacity=0.6,
@@ -267,7 +267,7 @@ class LogicOfUncertainty(Scene):
         self.play(Create(s_box), Write(s_label))
         self.play(LaggedStart(*[GrowFromCenter(p) for p in pebbles], lag_ratio=0.06), run_time=1.5)
 
-        # Define sample space neatly in a "sidebar" format
+        
         s_def = VGroup(
             Text("Sample Space (S):", font_size=24, color=SOFT_WHITE, weight=BOLD),
             Text("The set of all possible outcomes.", font_size=20, color=GREY_3B),
@@ -277,7 +277,7 @@ class LogicOfUncertainty(Scene):
         self.play(FadeIn(s_def, shift=LEFT * 0.3))
         self.wait(1)
 
-        # Event A — ellipse with a subtle blue fill
+        
         event_a = Ellipse(width=6.5, height=2.8, color=BLUE_3B, stroke_width=2.5, fill_opacity=0.1)
         event_a.move_to([-0.8, 0.3, 0]).shift(left_shift)
         a_label = MathTex("A", font_size=32, color=BLUE_3B)
@@ -292,19 +292,19 @@ class LogicOfUncertainty(Scene):
         self.play(Create(event_a, run_time=1.5), Write(a_label))
         self.play(FadeIn(a_def, shift=LEFT * 0.3))
 
-        # Light up pebbles inside A (changes their color to blue)
+        
         in_a = pebbles[:6]
         self.play(
             *[p.animate.set_color(BLUE_3B) for p in in_a],
             run_time=0.8
         )
 
-        # Event B — dashed ellipse overlapping, also with a subtle fill
+        
         b_border = Ellipse(width=4.5, height=3.5, color=GOLD_3B, stroke_width=2)
         b_border.set_stroke(opacity=0.7)
         dash = DashedVMobject(b_border, num_dashes=35)
         
-        # To fill a dashed object nicely, we put a borderless filled ellipse behind it
+        
         b_fill = Ellipse(width=4.5, height=3.5, color=GOLD_3B, fill_opacity=0.1, stroke_width=0)
         
         event_b = VGroup(b_fill, dash)
@@ -347,7 +347,7 @@ class LogicOfUncertainty(Scene):
 
         self.play(LaggedStart(*[GrowFromCenter(p) for p in pebbles], lag_ratio=0.06), run_time=1.2)
 
-        # Braces
+        
         fav = VGroup(*pebbles[:5])
         brace_fav = brace_label(fav, r"|A| = 5", UP, BLUE_3B, 26)
         brace_tot = brace_label(pebbles, r"|S| = 9", DOWN, SOFT_WHITE, 26)
@@ -421,7 +421,7 @@ class LogicOfUncertainty(Scene):
             right_label.animate.scale(1.2),
             run_time=1.5, rate_func=there_and_back_with_pause
         )
-        # (It reverts to original size after the pause to make room for the bottom text)
+        
 
         # 5. The reality text
         reality = Text(
@@ -430,7 +430,7 @@ class LogicOfUncertainty(Scene):
         )
         reality.to_edge(DOWN, buff=0.5)
 
-        # 6. Polished, visually appealing symmetric objects
+        
         # High-quality Coin
         coin_bg = Circle(radius=0.45, color=GOLD_3B, fill_opacity=0.2, stroke_width=3)
         coin_inner = Circle(radius=0.35, color=GOLD_3B, stroke_width=1)
@@ -601,7 +601,7 @@ class LogicOfUncertainty(Scene):
         title.to_edge(UP, buff=0.5)
         self.play(Write(title[0]), GrowFromEdge(title[1], LEFT))
 
-        # 1. Formula
+        
         rule = MathTex(
             r"a", r"\text{ outcomes}", r"\times",
             r"b", r"\text{ outcomes}", r"=",
@@ -614,7 +614,7 @@ class LogicOfUncertainty(Scene):
         rule.next_to(title, DOWN, buff=0.6)
         self.play(FadeIn(rule, shift=UP * 0.2))
 
-        # 2. Helper function for organic flowing branches
+       
         def create_branch(start, end, color):
             # Calculate control points for an S-curve
             dist = end[0] - start[0]
@@ -625,7 +625,7 @@ class LogicOfUncertainty(Scene):
                 stroke_color=color, stroke_width=3, stroke_opacity=0.7
             )
 
-        # 3. Helper function for luminous glowing nodes
+       
         def create_node(pos, color, radius=0.12):
             core = Dot(pos, radius=radius, color=color)
             glow1 = Dot(pos, radius=radius*2.5, color=color, fill_opacity=0.25, stroke_width=0)
@@ -651,7 +651,7 @@ class LogicOfUncertainty(Scene):
         l2_lines = VGroup()
         l2_nodes = VGroup()
         
-        # We will add both the dot AND the text to this group so the brace clears everything
+        
         right_side_elements = VGroup() 
 
         for i, (cone, cy) in enumerate(zip(cones, cone_ys)):
@@ -695,7 +695,7 @@ class LogicOfUncertainty(Scene):
         self.play(LaggedStart(*[Create(l) for l in l2_lines], lag_ratio=0.08), run_time=1.5)
         self.play(FadeIn(l2_nodes, shift=RIGHT * 0.2), run_time=1)
 
-        # 5. Attach the brace to the outermost elements
+        
         br = Brace(right_side_elements, RIGHT, color=GREEN_3B, buff=0.2)
         br_tex = MathTex(r"2 \times 3 = 6", font_size=42, color=GREEN_3B)
         br_tex.next_to(br, RIGHT, buff=0.2)
@@ -1175,7 +1175,7 @@ class LogicOfUncertainty(Scene):
         title.to_edge(UP, buff=0.5)
         self.play(Write(title[0]), GrowFromEdge(title[1], LEFT))
 
-        # 1. Shift Axes UP to avoid text collisions at the bottom
+       
         ax = Axes(
             x_range=[0, 100, 20],
             y_range=[0, 1.05, 0.5],
@@ -1202,7 +1202,7 @@ class LogicOfUncertainty(Scene):
 
         self.play(Create(ax, run_time=1), Write(x_lab), FadeIn(y_lab))
 
-        # 2. Continuous exponential approximation for a buttery smooth curve
+        # Continuous exponential approximation for a buttery smooth curve
         def bp_smooth(x):
             return 1.0 - np.exp(-x * (x - 1) / (2 * 365))
 
@@ -1219,7 +1219,7 @@ class LogicOfUncertainty(Scene):
         self.play(Create(dashed), FadeIn(half_label))
         self.play(Create(graph, run_time=2.5, rate_func=smooth))
 
-        # 3. Add visual shading to the "Danger Zone" (Probability > 50%)
+        # Add visual shading to the "Danger Zone" (Probability > 50%)
         danger_zone = ax.get_area(
             graph, x_range=[23, 100], 
             color=[YELLOW_3B, TEAL_3B], opacity=0.25
@@ -1265,7 +1265,7 @@ class LogicOfUncertainty(Scene):
             Write(k57_label), Write(k57_klabel),
         )
 
-        # 4. Insight (Safely placed below the axes)
+        # Insight 
         insight = MathTex(
             r"\binom{23}{2} = 253 \text{ pairs. Our brains miss this.}",
             font_size=32, color=SOFT_WHITE
@@ -1531,12 +1531,12 @@ class LogicOfUncertainty(Scene):
         title.to_edge(UP, buff=0.5)
         self.play(Write(title[0]), GrowFromEdge(title[1], LEFT))
 
-        # Make subtitle slightly more stylized and italicized
+        
         subtitle = Text("A Translation Guide", font_size=24, color=GREY_3B, slant=ITALIC)
         subtitle.next_to(title, DOWN, buff=0.3)
         self.play(FadeIn(subtitle, shift=UP * 0.2))
 
-        # 1. Create a border panel to anchor the table and its columns
+       
         panel = RoundedRectangle(
             width=10.5, height=5.0, corner_radius=0.25,
             fill_color=DARK_GREY, fill_opacity=0.2, 
@@ -1545,21 +1545,21 @@ class LogicOfUncertainty(Scene):
         panel.next_to(subtitle, DOWN, buff=0.4)
         self.play(Create(panel), run_time=1)
 
-        # 2. Setup Headers and arrange them as a group with larger text
+        
         col1 = Text("Events", font_size=28, color=SOFT_WHITE, weight=BOLD)
         col2 = Text("Set Theory", font_size=28, color=BLUE_3B, weight=BOLD)
         col3 = Text("Probability", font_size=28, color=YELLOW_3B, weight=BOLD)
         headers = VGroup(col1, col2, col3).arrange(RIGHT, buff=2.2)
         headers.move_to(panel.get_top() + DOWN * 0.6)
 
-        # Enhance arrows - slightly thicker flow lines and better buffing
+        
         arr1 = Arrow(col1.get_right(), col2.get_left(), color=GREY_3B, stroke_width=3, buff=0.3)
         arr2 = Arrow(col2.get_right(), col3.get_left(), color=GREY_3B, stroke_width=3, buff=0.3)
         p_label = MathTex("P", font_size=24, color=YELLOW_3B).next_to(arr2, UP, buff=0.1)
         
         header_group = VGroup(headers, arr1, arr2, p_label)
 
-        # Solid separator line below headers
+        
         sep_line = Line(
             panel.get_left() + RIGHT * 0.5,
             panel.get_right() + LEFT * 0.5,
@@ -1573,14 +1573,14 @@ class LogicOfUncertainty(Scene):
             run_time=1.5
         )
 
-        # 3. Setup Rows dynamically arranged to headers
+        
         rows_data = [
             ("A or B", r"A \cup B", r"P(A \cup B)"),
             ("not A", r"A^c", r"1 - P(A)"),
             ("Anything", r"S", r"P(S) = 1"),
         ]
 
-        # Use arranging for cleaner positioning of the rows
+       
         rows = VGroup()
         for ev, st, pr in rows_data:
             e = Text(ev, font_size=24, color=GREY_3B)
@@ -1599,7 +1599,7 @@ class LogicOfUncertainty(Scene):
         rows.arrange(DOWN, buff=0.75)
         rows.next_to(sep_line, DOWN, buff=0.6)
 
-        # 4. Subtle ledger lines between rows
+        
         dashed_lines = VGroup()
         for i in range(len(rows) - 1):
             dl = DashedLine(
@@ -1613,8 +1613,7 @@ class LogicOfUncertainty(Scene):
 
         self.play(Create(dashed_lines), run_time=1)
 
-        # 5. Sequential "Translation" Reveal (Left to Right, then Down)
-        # This forces the brain to watch the "translation" happen in order.
+       
         for row in rows:
             self.play(FadeIn(row[0], shift=RIGHT * 0.2), run_time=0.4) # Event (English)
             self.play(FadeIn(row[1], shift=RIGHT * 0.2), run_time=0.4) # Set Theory (Math)
