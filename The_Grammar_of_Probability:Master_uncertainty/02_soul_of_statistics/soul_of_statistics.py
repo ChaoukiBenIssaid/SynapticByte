@@ -7,9 +7,6 @@ Render from the repository root with:
 
     manim -pqh 02_soul_of_statistics/soul_of_statistics.py SoulOfStatistics
 
-See ``README.md`` in this folder for a scene-by-scene breakdown and the list
-of SVG assets referenced by the script.
-
 This script is the silent (animations-only) version. The voiceover heard on
 the YouTube channel is generated separately and is not included in this repo.
 """
@@ -39,7 +36,6 @@ from manim import (
     GrowFromCenter,
     GrowFromEdge,
     Group,
-    ImageMobject,
     Indicate,
     Intersection,
     LaggedStart,
@@ -48,7 +44,6 @@ from manim import (
     MobjectTable,
     ReplacementTransform,
     RoundedRectangle,
-    SVGMobject,
     Scene,
     Square,
     SurroundingRectangle,
@@ -94,9 +89,6 @@ from shared.components import (  # noqa: E402
     section_title,
 )
 
-# Assets relative to the project root (SVG files, mostly placeholders).
-ASSET_DIR = Path(__file__).resolve().parent / "assets"
-
 
 # ═══════════════════════════════════════════════════════════════════
 #  MAIN SCENE
@@ -129,20 +121,6 @@ class SoulOfStatistics(Scene):
     # ------------------------------------------------------------------
     def clear_scene(self, fade_time=0.6):
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=fade_time)
-
-    def safe_svg(self, filename, fallback_text="?", color=SOFT_WHITE, height=None):
-        """Load an SVG from the assets folder, falling back to a text glyph."""
-        path = ASSET_DIR / filename
-        try:
-            svg = SVGMobject(str(path))
-            if height is not None:
-                svg.height = height
-            return svg
-        except Exception:
-            fallback = Text(fallback_text, font_size=24, color=color)
-            if height is not None:
-                fallback.height = height
-            return fallback
 
     # ─────────────────────────────────────────────────────────────
     #  1. TITLE
@@ -570,7 +548,7 @@ class SoulOfStatistics(Scene):
 
         self.play(FadeIn(prompt))
 
-        def make_branch_node(file_name, main_val, sub_text, color, radius=0.45):
+        def make_branch_node(icon_char, main_val, sub_text, color, radius=0.45):
             bg_circle = Circle(
                 radius=radius, stroke_color=color, stroke_width=3,
                 fill_color=DARK_BG, fill_opacity=1,
@@ -579,19 +557,15 @@ class SoulOfStatistics(Scene):
                 radius=radius * 1.2, stroke_color=color,
                 stroke_width=6, stroke_opacity=0.15,
             )
-            icon = self.safe_svg(file_name, "?", color=color)
-            try:
-                icon.width = radius * 1.1
-                icon.set_color(color).set_fill(opacity=0).set_stroke(width=2, opacity=1)
-            except Exception:
-                pass
+            icon = Text(icon_char, color=color)
+            icon.width = radius * 1.1
             icon.move_to(bg_circle)
             icon_group = Group(glow, bg_circle, icon)
             val_tex = Tex(main_val, font_size=24, color=SOFT_WHITE).next_to(icon_group, UP, buff=0.15)
             label = Tex(sub_text, font_size=20, color=color).next_to(icon_group, DOWN, buff=0.15)
             return Group(icon_group, val_tex, label), icon_group
 
-        def make_leaf_node(file_name, main_val, sub_text, color, radius=0.35):
+        def make_leaf_node(icon_char, main_val, sub_text, color, radius=0.35):
             bg_circle = Circle(
                 radius=radius, stroke_color=color, stroke_width=3,
                 fill_color=DARK_BG, fill_opacity=1,
@@ -600,43 +574,39 @@ class SoulOfStatistics(Scene):
                 radius=radius * 1.2, stroke_color=color,
                 stroke_width=6, stroke_opacity=0.15,
             )
-            icon = self.safe_svg(file_name, "?", color=color)
-            try:
-                icon.width = radius * 1.1
-                icon.set_color(color).set_fill(opacity=0).set_stroke(width=2, opacity=1)
-            except Exception:
-                pass
+            icon = Text(icon_char, color=color)
+            icon.width = radius * 1.1
             icon.move_to(bg_circle)
             icon_group = Group(glow, bg_circle, icon)
             val_tex = Tex(main_val, font_size=22, color=color).next_to(icon_group, DOWN, buff=0.15)
             label = Tex(sub_text, font_size=22, color=color).next_to(icon_group, RIGHT, buff=0.4)
             return Group(icon_group, val_tex, label), icon_group, label
 
-        root, root_icon = make_branch_node("factory.svg", "10,000", "Total Chips", SOFT_WHITE, radius=0.55)
+        root, root_icon = make_branch_node("🏢", "10,000", "Total Chips", SOFT_WHITE, radius=0.55)
         root.move_to(LEFT * 5.8 + DOWN * 1 + TREE_SHIFT)
 
-        defective, def_icon = make_branch_node("chip.svg", "100", r"Defective (1\%)", GREY_3B, radius=0.45)
+        defective, def_icon = make_branch_node("📟", "100", r"Defective (1\%)", GREY_3B, radius=0.45)
         defective.move_to(LEFT * 3.0 + UP * 0.5 + TREE_SHIFT)
 
-        perfect, perf_icon = make_branch_node("chip.svg", "9,900", r"Perfect (99\%)", TEAL_3B, radius=0.45)
+        perfect, perf_icon = make_branch_node("📟", "9,900", r"Perfect (99\%)", TEAL_3B, radius=0.45)
         perfect.move_to(LEFT * 3.0 + DOWN * 2.3 + TREE_SHIFT)
 
         line_d = Line(root_icon.get_right(), def_icon.get_left(), stroke_color=GOLD_3B, stroke_width=2)
         line_p = Line(root_icon.get_right(), perf_icon.get_left(), stroke_color=TEAL_3B, stroke_width=2)
 
-        tp, tp_icon, tp_lbl = make_leaf_node("alert.svg", "95", r"Flagged +\\(True Positives)", GOLD_3B)
+        tp, tp_icon, tp_lbl = make_leaf_node("⚠️", "95", r"Flagged +\\(True Positives)", GOLD_3B)
         tp.move_to(LEFT * 0.5 + UP * 1.5 + TREE_SHIFT)
         line_tp = Line(def_icon.get_right(), tp_icon.get_left(), stroke_color=GOLD_3B, stroke_width=2)
 
-        fn, fn_icon, fn_lbl = make_leaf_node("check.svg", "5", r"Passed -\\(False Negatives)", DARK_GREY, radius=0.3)
+        fn, fn_icon, fn_lbl = make_leaf_node("✔", "5", r"Passed -\\(False Negatives)", DARK_GREY, radius=0.3)
         fn.move_to(LEFT * 0.5 + UP * 0.1 + TREE_SHIFT)
         line_fn = Line(def_icon.get_right(), fn_icon.get_left(), stroke_color=DARK_GREY, stroke_width=1.5)
 
-        fp, fp_icon, fp_lbl = make_leaf_node("alert.svg", "495", r"Flagged +\\(False Positives)", ORANGE_3B)
+        fp, fp_icon, fp_lbl = make_leaf_node("⚠️", "495", r"Flagged +\\(False Positives)", ORANGE_3B)
         fp.move_to(LEFT * 0.5 + DOWN * 1.2 + TREE_SHIFT)
         line_fp = Line(perf_icon.get_right(), fp_icon.get_left(), stroke_color=ORANGE_3B, stroke_width=2)
 
-        tn, tn_icon, tn_lbl = make_leaf_node("check.svg", "9,405", r"Passed -\\(True Negatives)", TEAL_3B)
+        tn, tn_icon, tn_lbl = make_leaf_node("✔", "9,405", r"Passed -\\(True Negatives)", TEAL_3B)
         tn.move_to(LEFT * 0.5 + DOWN * 2.7 + TREE_SHIFT)
         line_tn = Line(perf_icon.get_right(), tn_icon.get_left(), stroke_color=TEAL_3B, stroke_width=1.5)
 
@@ -747,29 +717,26 @@ class SoulOfStatistics(Scene):
         ).next_to(title, DOWN, buff=0.4)
         self.play(FadeIn(scenario))
 
-        def make_icon_node(letter, label_text, node_color, file_name=None):
+        def make_icon_node(letter, label_text, node_color):
             bg_circle = Circle(
                 radius=0.6, stroke_color=node_color, stroke_width=3, fill_opacity=0.1,
             )
             glow = Circle(
                 radius=0.75, stroke_color=node_color, stroke_width=5, stroke_opacity=0.2,
             )
-            icon = self.safe_svg(file_name, letter, color=node_color) if file_name else Text(letter, font_size=40, color=node_color)
-            try:
-                icon.width = 0.6
-            except Exception:
-                pass
+            icon = Text(letter, font_size=40, color=node_color)
+            icon.width = 0.6
             icon.move_to(bg_circle)
             label = Tex(label_text, font_size=24, color=SOFT_WHITE).next_to(bg_circle, DOWN, buff=0.2)
             return Group(glow, bg_circle, icon, label), bg_circle
 
-        m_node_group, m_circle = make_icon_node("M", r"\textbf{M}: Memory Leak", GREY_C, "memory.svg")
+        m_node_group, m_circle = make_icon_node("M", r"\textbf{M}: Memory Leak", GREY_C)
         m_node_group.move_to(LEFT * 5 + UP * 0.2)
 
-        n_node_group, n_circle = make_icon_node("N", r"\textbf{N}: Network Spike", GREY_3B, "network.svg")
+        n_node_group, n_circle = make_icon_node("N", r"\textbf{N}: Network Spike", GREY_3B)
         n_node_group.move_to(LEFT * 5 + DOWN * 2.4)
 
-        c_node_group, c_circle = make_icon_node("C", r"\textbf{C}: Crashing", ORANGE_3B, "crash.svg")
+        c_node_group, c_circle = make_icon_node("C", r"\textbf{C}: Crashing", ORANGE_3B)
         c_node_group.move_to(LEFT * 2 + DOWN * 1.1)
 
         arr_mc = Arrow(m_circle.get_right(), c_circle.get_top() + LEFT * 0.1, color=GOLD_3B, stroke_width=2, buff=0.15)
@@ -935,7 +902,7 @@ class SoulOfStatistics(Scene):
         ).next_to(title, DOWN, buff=0.4)
         self.play(FadeIn(scenario))
 
-        def make_nanobot(color=CYAN_GLOW, radius=0.2, svg_file="nanobot.svg"):
+        def make_nanobot(color=CYAN_GLOW, radius=0.2):
             bg_circle = Circle(
                 radius=radius, fill_color=DARK_BG, fill_opacity=1,
                 stroke_color=color, stroke_width=2,
@@ -944,24 +911,16 @@ class SoulOfStatistics(Scene):
                 radius=radius * 1.4, fill_opacity=0,
                 stroke_color=color, stroke_width=6, stroke_opacity=0.2,
             )
-            icon = self.safe_svg(svg_file, "N", color=color)
-            try:
-                icon.width = radius * 1.2
-            except Exception:
-                pass
+            icon = Text("N", font_size=24, color=color)
+            icon.width = radius * 1.2
             icon.move_to(bg_circle)
             return Group(glow, bg_circle, icon), bg_circle
 
         def make_death_mark(radius=0.15):
-            mark = self.safe_svg("skull.svg", "x", color=RED_3B)
-            try:
-                mark.set_color(RED_3B)
-                mark.width = radius * 2
-            except Exception:
-                mark = VGroup(
-                    Line(UP * radius + RIGHT * radius, DOWN * radius + LEFT * radius),
-                    Line(UP * radius + LEFT * radius, DOWN * radius + RIGHT * radius),
-                ).set_color(RED_3B).set_stroke(width=3)
+            mark = VGroup(
+                Line(UP * radius + RIGHT * radius, DOWN * radius + LEFT * radius),
+                Line(UP * radius + LEFT * radius, DOWN * radius + RIGHT * radius),
+            ).set_color(RED_3B).set_stroke(width=3)
             return mark
 
         nano_group, nano_core = make_nanobot(CYAN_GLOW)
@@ -1048,16 +1007,12 @@ class SoulOfStatistics(Scene):
         ).next_to(title, DOWN, buff=0.4)
         self.play(FadeIn(context))
 
-        def get_icon(file_name, fallback_text, color):
-            icon = self.safe_svg(file_name, fallback_text, color=color)
-            try:
-                icon.set_color(color).set_stroke(width=1)
-                icon.height = 0.8
-            except Exception:
-                pass
+        def get_icon(fallback_text, color):
+            icon = Text(fallback_text, color=color)
+            icon.height = 0.8
             return icon
 
-        fl_icon = get_icon("scales.svg", "⚖", RED_3B)
+        fl_icon = get_icon("⚖", RED_3B)
         fl_title = Tex(r"\textbf{The Flawed Logic}", font_size=28, color=SOFT_WHITE)
         fl_header = VGroup(fl_icon, fl_title).arrange(DOWN, buff=0.2)
         fl_fact1 = Tex("1. DNA from a crime scene matches a suspect.", font_size=20, color=GREY_3B)
@@ -1071,7 +1026,7 @@ class SoulOfStatistics(Scene):
         fl_content = VGroup(fl_header, fl_fact1, fl_fact2, fl_conclusion).arrange(DOWN, buff=0.4, aligned_edge=LEFT)
         fl_content.shift(LEFT * 3.5 + DOWN * 0.5)
 
-        mf_icon = get_icon("dna_database.svg", "🧬", GOLD_3B)
+        mf_icon = get_icon("🧬", GOLD_3B)
         mf_title = Tex(r"\textbf{The Mathematical Fatal Flaw}", font_size=28, color=SOFT_WHITE)
         mf_header = VGroup(mf_icon, mf_title).arrange(DOWN, buff=0.2)
         mf_formula = MathTex(
@@ -1118,16 +1073,12 @@ class SoulOfStatistics(Scene):
         ).next_to(title, DOWN, buff=0.4)
         self.play(FadeIn(context))
 
-        def get_icon(file_name, fallback_text, color):
-            icon = self.safe_svg(file_name, fallback_text, color=color)
-            try:
-                icon.set_color(color).set_stroke(width=1)
-                icon.height = 0.8
-            except Exception:
-                pass
+        def get_icon(fallback_text, color):
+            icon = Text(fallback_text, color=color)
+            icon.height = 0.8
             return icon
 
-        fl_icon = get_icon("briefcase.svg", "💼", RED_3B)
+        fl_icon = get_icon("💼", RED_3B)
         fl_title = Text("The Flawed Logic", font_size=28, color=SOFT_WHITE, weight=BOLD)
         fl_header = VGroup(fl_icon, fl_title).arrange(DOWN, buff=0.2)
         fl_text = Text(
@@ -1142,7 +1093,7 @@ class SoulOfStatistics(Scene):
         fl_content = VGroup(fl_header, fl_text, fl_math).arrange(DOWN, buff=0.5)
         fl_content.shift(LEFT * 3.5 + DOWN * 0.5)
 
-        mf_icon = get_icon("magnifying_glass.svg", "🔍", GOLD_3B)
+        mf_icon = get_icon("🔍", GOLD_3B)
         mf_title = Text("The Fatal Flaw", font_size=28, color=SOFT_WHITE, weight=BOLD)
         mf_header = VGroup(mf_icon, mf_title).arrange(DOWN, buff=0.2)
         mf_text1 = Text(
@@ -1185,19 +1136,15 @@ class SoulOfStatistics(Scene):
         title = section_title("Diagnostic Matrix: Legal Fallacies").to_edge(UP, buff=0.5)
         self.play(Write(title[0]), GrowFromEdge(title[1], LEFT))
 
-        def get_header_with_icon(text, icon_name, fallback_char, color):
-            icon = self.safe_svg(icon_name, fallback_char, color=color)
-            try:
-                icon.set_color(color).set_stroke(width=1)
-                icon.height = 0.5
-            except Exception:
-                pass
+        def get_header_with_icon(text, fallback_char, color):
+            icon = Text(fallback_char, color=color)
+            icon.height = 0.5
             label = Tex(rf"\textbf{{{text}}}", font_size=28, color=SOFT_WHITE)
             return VGroup(icon, label).arrange(RIGHT, buff=0.2)
 
         col_headers = [
-            get_header_with_icon("Prosecutor's Fallacy", "scales.svg", "⚖", RED_3B),
-            get_header_with_icon("Defense Attorney's Fallacy", "magnifying_glass.svg", "🔍", GOLD_3B),
+            get_header_with_icon("Prosecutor's Fallacy", "⚖", RED_3B),
+            get_header_with_icon("Defense Attorney's Fallacy", "🔍", GOLD_3B),
         ]
         row_headers = [
             Tex(r"\textbf{The Error}", font_size=24, color=SOFT_WHITE),
@@ -1248,18 +1195,15 @@ class SoulOfStatistics(Scene):
         subtitle = Tex(r"\textit{The Impossibility}", font_size=26, color=GREY_3B).next_to(title, DOWN, buff=0.3)
         self.play(FadeIn(subtitle))
 
-        def get_avatar(text, icon_name, fallback_char, color):
-            icon = self.safe_svg(icon_name, fallback_char, color=color)
-            try:
-                icon.height = 0.5
-            except Exception:
-                pass
+        def get_avatar(text, fallback_char, color):
+            icon = Text(fallback_char, color=color)
+            icon.height = 0.5
             label = Tex(rf"\textbf{{{text}}}", font_size=22, color=SOFT_WHITE)
             return VGroup(icon, label).arrange(DOWN, buff=0.15)
 
         col_labels = [
-            get_avatar("Alice (Sr. Dev)", "alice.svg", "A", TEAL_3B),
-            get_avatar("Bob (Jr. Dev)", "bob.svg", "B", GOLD_3B),
+            get_avatar("Alice (Sr. Dev)", "A", TEAL_3B),
+            get_avatar("Bob (Jr. Dev)", "B", GOLD_3B),
         ]
         row_labels = [
             Tex("Core Backend", font_size=22, color=SOFT_WHITE),
@@ -1340,12 +1284,9 @@ class SoulOfStatistics(Scene):
         title = section_title("Resolving the Paradox").to_edge(UP, buff=0.5)
         self.play(Write(title[0]), GrowFromEdge(title[1], LEFT))
 
-        def get_avatar(text, icon_name, fallback_char, color):
-            icon = self.safe_svg(icon_name, fallback_char, color=color)
-            try:
-                icon.height = 0.4
-            except Exception:
-                pass
+        def get_avatar(text, fallback_char, color):
+            icon = Text(fallback_char, color=color)
+            icon.height = 0.4
             label = Tex(rf"\textbf{{{text}}}", font_size=20, color=SOFT_WHITE)
             return VGroup(icon, label).arrange(DOWN, buff=0.15)
 
@@ -1372,8 +1313,8 @@ class SoulOfStatistics(Scene):
         alice_grid = VGroup(alice_hard, alice_easy)
         bob_grid = VGroup(bob_hard, bob_easy)
 
-        alice_lbl = get_avatar("Alice", "alice.svg", "A", TEAL_3B).next_to(alice_grid, DOWN, buff=0.3)
-        bob_lbl = get_avatar("Bob", "bob.svg", "B", GOLD_3B).next_to(bob_grid, DOWN, buff=0.3)
+        alice_lbl = get_avatar("Alice", "A", TEAL_3B).next_to(alice_grid, DOWN, buff=0.3)
+        bob_lbl = get_avatar("Bob", "B", GOLD_3B).next_to(bob_grid, DOWN, buff=0.3)
         h_hard_label = Tex("Backend", font_size=18, color=SOFT_WHITE).next_to(alice_hard, LEFT, buff=0.3)
         h_easy_label = Tex("UI Tweaks", font_size=18, color=GREY_3B).next_to(alice_easy, LEFT, buff=0.3)
 
